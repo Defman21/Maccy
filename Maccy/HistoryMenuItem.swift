@@ -3,6 +3,7 @@ import Cocoa
 class HistoryMenuItem: NSMenuItem {
   typealias Callback = (HistoryMenuItem) -> Void
 
+  public var isPinned = false
   public var item: HistoryItem!
 
   private let showMaxLength = 50
@@ -22,7 +23,14 @@ class HistoryMenuItem: NSMenuItem {
     self.toolTip = """
                    \(item.value)\n \n
                    Press ⌥+⌫ to delete.
+                   Press ⌥+p to (un)pin.
                    """
+    // See https://hetima.github.io/fucking_nsimage_syntax for images.
+    self.onStateImage = NSImage(named: "NSStatusNone")
+
+    if let itemPin = item.pin {
+      pin(itemPin)
+    }
   }
 
   @objc
@@ -30,6 +38,20 @@ class HistoryMenuItem: NSMenuItem {
     for hook in onSelected {
       hook(self)
     }
+  }
+
+  func pin(_ pin: String) {
+    item.pin = pin
+    self.isPinned = true
+    self.keyEquivalent = pin
+    self.state = .on
+  }
+
+  func unpin() {
+    item.pin = nil
+    self.isPinned = false
+    self.keyEquivalent = ""
+    self.state = .off
   }
 
   private func humanizedTitle(_ title: String) -> String {
