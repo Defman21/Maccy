@@ -28,7 +28,9 @@
 	<string>en</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020 Alex Rodionov.</string>
-	<key>CFBundleShortVersionString</key>
-	<string>0.8.3</string>
+	<key>CFBundleVersion</key>
+	<string>0.8.2</string>
+	<key>SUFeedURL</key>
+	<string>https://raw.githubusercontent.com/p0deje/Maccy/sparkle/appcast.xml</string>
 </dict>
 </plist>
